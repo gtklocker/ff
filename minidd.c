@@ -25,12 +25,13 @@
 #include <string.h>
 #include <stdio.h>
 
-static void die(const char *);
 static void usage(const char *);
 
 int
 main(int argc, const char *argv[])
 {
+	const char *error_format = "Failed to open %s";
+	char error_string[PATH_MAX + strlen(error_format)];
 	char input_file[PATH_MAX], output_file[PATH_MAX];
 	int input, output;
 
@@ -57,14 +58,17 @@ main(int argc, const char *argv[])
 
 	/* Open the files.  */
 	input = open(input_file, O_RDONLY);
-	output = open(output_file, O_WRONLY | O_TRUNC | O_APPEND);
-
 	if (input < 0) {
-		die("Input file does not exist. Exiting...\n");
+		sprintf(error_string, error_format, input_file);
+		perror(error_string);
+		exit(EXIT_FAILURE);
 	}
 
+	output = open(output_file, O_WRONLY | O_TRUNC | O_APPEND);
 	if (output < 0) {
-		die("Output file does not exist. Exiting...\n");
+		sprintf(error_string, error_format, output_file);
+		perror(error_string);
+		exit(EXIT_FAILURE);
 	}
 
 	/* Get file size.  */
@@ -82,13 +86,6 @@ main(int argc, const char *argv[])
 	putchar('\n');
 
 	exit(EXIT_SUCCESS);
-}
-
-static void
-die(const char *msg)
-{
-	fprintf(stderr, msg);
-	exit(EXIT_FAILURE);
 }
 
 static void
