@@ -76,11 +76,27 @@ main(int argc, const char *argv[])
 	input_size = stat_buffer.st_size;
 
 	/* Copy the file.  */
-	for (bytes_read = 0; (last_read = read(input, buffer, BUFFER_SIZE)); bytes_read += last_read) {
-		write(output, buffer, last_read);
+	bytes_read = 0;
+	while ((last_read = read(input, buffer, BUFFER_SIZE))) {
+		/* Check if read is successful/device still intact.  */
+		if (last_read < 0) {
+			perror("Read failed");
+
+			close(output);
+			exit(EXIT_FAILURE);
+		}
+
+		/* If everything goes right.  */
+		bytes_read += last_read;
+		if (write(output, buffer, last_read) < 0) {
+			perror("Write failed");
+
+			close(input);
+			exit(EXIT_FAILURE);
+		}
 
 		/* Update progress.  */
-		fprintf(stdout, "\rProgress: %d%%", (int)((float)(bytes_read + last_read) / input_size * 100));
+		fprintf(stdout, "\rProgress: %d%%", (int)((float)(bytes_read) / input_size * 100));
 		fflush(stdout);
 	}
 	putchar('\n');
