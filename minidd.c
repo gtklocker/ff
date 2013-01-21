@@ -85,6 +85,9 @@ main(int argc, const char *argv[])
 	}
 	putchar('\n');
 
+	close(input);
+	close(output);
+
 	exit(EXIT_SUCCESS);
 }
 
