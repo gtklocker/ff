@@ -94,10 +94,6 @@ main(int argc, const char *argv[])
 			close(input);
 			exit(EXIT_FAILURE);
 		}
-
-		/* Update progress.  */
-		fprintf(stdout, "\rProgress: %d%%", (int)((float)(bytes_read) / input_size * 100));
-		fflush(stdout);
 	}
 	putchar('\n');
 
