@@ -1,5 +1,5 @@
 PROG = minidd
-SRCS = minidd.c
+SRCS = minidd.c args.c
 
 CCFLAGS += -Wall
 
