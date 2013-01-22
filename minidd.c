@@ -25,6 +25,8 @@
 #include <string.h>
 #include <stdio.h>
 
+#include "minidd.h"
+
 static void usage(const char *);
 
 int
@@ -32,7 +34,6 @@ main(int argc, const char *argv[])
 {
 	const char *error_format = "Failed to open %s";
 	char error_string[PATH_MAX + strlen(error_format)];
-	char input_file[PATH_MAX], output_file[PATH_MAX];
 	int input, output;
 
 	/*
@@ -48,27 +49,32 @@ main(int argc, const char *argv[])
 	struct stat stat_buffer;
 	int input_size;
 
-	if (argc < 3) {
-		fprintf(stderr, "Not enough arguments given.\n");
-		usage(argv[0]);
-	}
-
-	strcpy(input_file, argv[1]);
-	strcpy(output_file, argv[2]);
+	init_operands();
+	parse_operands(argc, argv);
 
 	/* Open the files.  */
-	input = open(input_file, O_RDONLY);
-	if (input < 0) {
-		sprintf(error_string, error_format, input_file);
-		perror(error_string);
-		exit(EXIT_FAILURE);
+	if (strlen(OPERANDS.dd_if) == 0) {
+		input = STDIN_FILENO;
+	}
+	else {
+		input = open(OPERANDS.dd_if, O_RDONLY);
+		if (input < 0) {
+			sprintf(error_string, error_format, OPERANDS.dd_if);
+			perror(error_string);
+			exit(EXIT_FAILURE);
+		}
 	}
 
-	output = open(output_file, O_WRONLY | O_TRUNC | O_APPEND);
-	if (output < 0) {
-		sprintf(error_string, error_format, output_file);
-		perror(error_string);
-		exit(EXIT_FAILURE);
+	if (strlen(OPERANDS.dd_of) == 0) {
+		output = STDOUT_FILENO;
+	}
+	else {
+		output = open(OPERANDS.dd_of, O_WRONLY | O_TRUNC | O_APPEND);
+		if (output < 0) {
+			sprintf(error_string, error_format, OPERANDS.dd_of);
+			perror(error_string);
+			exit(EXIT_FAILURE);
+		}
 	}
 
 	/* Get file size.  */
