@@ -101,7 +101,6 @@ main(int argc, const char *argv[])
 			exit(EXIT_FAILURE);
 		}
 	}
-	putchar('\n');
 
 	close(input);
 	close(output);
