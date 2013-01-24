@@ -11,7 +11,8 @@ int is_valid_operand(const char *arg)
 	return strchr(arg, '=') != NULL;
 }
 
-void init_operands() {
+void init_operands()
+{
 	/* Default to STDIN/STDOUT. */
 	strcpy(OPERANDS.dd_if, "");
 	strcpy(OPERANDS.dd_of, "");
