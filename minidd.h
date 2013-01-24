@@ -1,5 +1,7 @@
 #include <limits.h>
 
+#define NDEBUG 1
+
 struct dd_operands {
 	char	dd_if[PATH_MAX];	/* input file */
 	char	dd_of[PATH_MAX];	/* output file */
