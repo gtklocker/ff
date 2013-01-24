@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-#include "minidd.h"
+#include "ff.h"
 
 struct dd_operands OPERANDS;
 

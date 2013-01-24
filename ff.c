@@ -1,19 +1,4 @@
-/*
- * minidd - minimalistic clone of dd, supports copy operations
- * Copyright 2013 Kostis Karantias
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *	 http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+/* ff: my basic implementation of the UNIX dd tool */
 
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -25,7 +10,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#include "minidd.h"
+#include "ff.h"
 
 static void usage(const char *);
 
