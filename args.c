@@ -33,22 +33,22 @@ void parse_operands(int argc, const char *argv[])
 		option = strtok((char *)argv[i], "=");
 		setting = strtok(NULL, "=");
 
-		#ifdef DEBUG
+		#ifndef NDEBUG
 		printf("setting %s to %s\n", option, setting);
 		#endif
 
 		if (strcmp(option, "if") == 0) {
-			strcpy(OPERANDS.dd_if, setting);
+			strncpy(OPERANDS.dd_if, setting, PATH_MAX);
 		}
 		if (strcmp(option, "of") == 0) {
-			strcpy(OPERANDS.dd_of, setting);
+			strncpy(OPERANDS.dd_of, setting, PATH_MAX);
 		}
 		if (strcmp(option, "count") == 0) {
 			OPERANDS.dd_count = atoi(setting);
 		}
 	}
 
-	#ifdef DEBUG
+	#ifndef NDEBUG
 	printf("input file: \t%s\n", OPERANDS.dd_if);
 	printf("output file: \t%s\n", OPERANDS.dd_of);
 	printf("count: \t\t%d\n", OPERANDS.dd_count);
