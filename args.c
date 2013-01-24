@@ -33,7 +33,7 @@ void parse_operands(int argc, const char *argv[])
 		option = strtok((char *)argv[i], "=");
 		setting = strtok(NULL, "=");
 
-		#ifdef DEBUG
+		#ifndef NDEBUG
 		printf("setting %s to %s\n", option, setting);
 		#endif
 
@@ -48,7 +48,7 @@ void parse_operands(int argc, const char *argv[])
 		}
 	}
 
-	#ifdef DEBUG
+	#ifndef NDEBUG
 	printf("input file: \t%s\n", OPERANDS.dd_if);
 	printf("output file: \t%s\n", OPERANDS.dd_of);
 	printf("count: \t\t%d\n", OPERANDS.dd_count);
