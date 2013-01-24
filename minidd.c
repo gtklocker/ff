@@ -33,7 +33,7 @@ int
 main(int argc, const char *argv[])
 {
 	const char *error_format = "Failed to open %s";
-	char error_string[PATH_MAX + strlen(error_format)];
+	char error_string[PATH_MAX + strlen(error_format) + 1];
 	int input, output;
 
 	/*
